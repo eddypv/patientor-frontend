@@ -21,7 +21,9 @@ const PatientPage = () =>{
                 dispatch({"type":"GET_PATIENT", payload:undefined});
             }
         };
+        
         void getPatient(patientId);
+        
     }, []);
     console.log(patient);
     return(
