@@ -61,3 +61,9 @@ enum HealthCheckRating{
   "CriticalRisk"=3
 }
 
+export interface EntryListProps {
+  entries:Entry[] | undefined
+}
+export interface DiagnosisListProps{
+  diagnoses: Diagnose["code"][] | undefined
+}

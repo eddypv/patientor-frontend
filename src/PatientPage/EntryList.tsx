@@ -1,12 +1,7 @@
 import React from "react";
-import {Entry, Diagnose} from '../types';
+import { DiagnosisListProps, EntryListProps} from '../types';
 import { Container, List} from 'semantic-ui-react';
-interface EntryListProps {
-    entries:Entry[] | undefined
-}
-interface DiagnosisListProps{
-    diagnoses: Diagnose["code"][] | undefined
-}
+
 const DiagnosisList = ({diagnoses}: DiagnosisListProps) =>{
     return (
         <List>
