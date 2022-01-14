@@ -8,7 +8,7 @@ import { useStateValue } from "./state";
 import { Patient } from "./types";
 
 import PatientListPage from "./PatientListPage";
-
+import PatientPage from "./PatientPage";
 const App = () => {
   const [, dispatch] = useStateValue();
   React.useEffect(() => {
@@ -37,9 +37,13 @@ const App = () => {
           </Button>
           <Divider hidden />
           <Switch>
+            <Route path="/patients/:patientId">
+              <PatientPage />
+            </Route>
             <Route path="/">
               <PatientListPage />
             </Route>
+            
           </Switch>
         </Container>
       </Router>
