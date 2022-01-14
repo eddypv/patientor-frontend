@@ -6,6 +6,7 @@ import { apiBaseUrl } from "../constants";
 import { Patient } from "../types";
 import { useStateValue } from "../state";
 import axios from "axios";
+import EntryList from "./EntryList";
 
 const PatientPage = () =>{
     const [{patient}, dispatch] = useStateValue();
@@ -22,12 +23,15 @@ const PatientPage = () =>{
         };
         void getPatient(patientId);
     }, []);
-    
+    console.log(patient);
     return(
         <Container>
-            <h2 title={patient?.gender}>{patient?.name} <Icon name={patient?.gender == "male" ? "mars":"venus"}  /></h2>
-            <p>ssn:{patient?.ssn}</p>
-            <p>occupation:{patient?.occupation}</p>
+            <Container>
+                <h2 title={patient?.gender}>{patient?.name} <Icon name={patient?.gender == "male" ? "mars":"venus"}  /></h2>
+                <p>ssn:{patient?.ssn}</p>
+                <p>occupation:{patient?.occupation}</p>
+            </Container>
+            <EntryList entries={patient?.entries} />
         </Container>
     ) ;
 };
