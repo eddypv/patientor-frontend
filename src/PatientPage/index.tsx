@@ -1,15 +1,33 @@
 import React  from "react";
-import { Container } from "semantic-ui-react";
+import { Container, Icon } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { apiBaseUrl } from "../constants";
+import { Patient } from "../types";
+import { useStateValue } from "../state";
+import axios from "axios";
+
 const PatientPage = () =>{
-    
+    const [{patient}, dispatch] = useStateValue();
     const {patientId} = useParams<{patientId:string}>();
-    console.log("entro"); 
+    useEffect(()=>{
+        const getPatient = async (id:string) =>{
+            const response = await axios.get<Patient>(`${apiBaseUrl}/patients/${id}`);
+            
+            if(response.status == 200){
+                dispatch({"type":"GET_PATIENT", payload:response.data});
+            }else{
+                dispatch({"type":"GET_PATIENT", payload:undefined});
+            }
+        };
+        void getPatient(patientId);
+    }, []);
+    
     return(
         <Container>
-            <h2>Patient {patientId}</h2>
-            <p>ssn:</p>
-            <p>occupation:</p>
+            <h2 title={patient?.gender}>{patient?.name} <Icon name={patient?.gender == "male" ? "mars":"venus"}  /></h2>
+            <p>ssn:{patient?.ssn}</p>
+            <p>occupation:{patient?.occupation}</p>
         </Container>
     ) ;
 };
