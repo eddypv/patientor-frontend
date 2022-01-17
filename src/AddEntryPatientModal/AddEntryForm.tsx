@@ -7,6 +7,7 @@ import AddHospitalForm from "./AddHospitalForm";
 import AddOccupationalForm from "./AddOccupationalForm";
 import axios from 'axios';
 import { apiBaseUrl } from "../constants";
+import { addEntry, useStateValue } from "../state";
 
 interface Props{
     onCancel:()=>void,
@@ -22,13 +23,14 @@ const entryOptions  =[
 const AddEntryForm = ({patientId, onCancel}:Props) =>{
   const [entryType, setEntryType] = useState<string>(EntryTypes.HealthCheck);
   const [messageError, setMessageError]  = useState<string|undefined>(undefined);
+  const [,dispatch] = useStateValue();
   const handleAddEntry = async(entry:NewEntry)=>{
     try{
         const {data:newEntry}= await axios.post<Entry>(`${apiBaseUrl}/patients/${patientId}/entries`, entry);
         setMessageError(undefined);
-        console.log(newEntry);
+        dispatch(addEntry(patientId, newEntry));
+        onCancel();
     }catch(error:any){
-        
         setMessageError(error?.response?.data?.error);
     }
     

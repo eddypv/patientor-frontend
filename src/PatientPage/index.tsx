@@ -21,8 +21,6 @@ const PatientPage = () =>{
             
             if(response.status == 200){
                 dispatch({"type":"GET_PATIENT", payload:response.data});
-            }else{
-                dispatch({"type":"GET_PATIENT", payload:undefined});
             }
         };
         
