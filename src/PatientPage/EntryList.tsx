@@ -2,7 +2,7 @@ import React from "react";
 import { DiagnosisListProps, Entry, EntryListProps} from '../types';
 import { Container, Header, Icon, List, Segment} from 'semantic-ui-react';
 import { useStateValue } from "../state";
-import {HealthCheckEntry, OccupationalHealthCareEntry, HospitalEntry} from '../types';
+import {HealthCheckEntry, OccupationalHealthCareEntry, HospitalEntry, EntryTypes} from '../types';
 import {assertNever} from '../utils';
 interface HealCheckProps{
     entry:HealthCheckEntry
@@ -80,11 +80,11 @@ const Hospital = ({entry}:HospitalProps) =>{
 const EntryList= ({entries}:EntryListProps) =>{
     const selectTypeEntry = (entry:Entry) =>{
         switch(entry.type){
-            case "HealthCheck":
+            case EntryTypes.HealthCheck:
                 return <HealthCheck key={entry.id} entry={entry} />;
-            case "OccupationalHealthcare":
+            case EntryTypes.OccupationalHealthcare:
                 return <OccupationHealthCare key={entry.id} entry={entry} />;
-            case "Hospital":
+            case EntryTypes.Hospital:
                 return <Hospital key={entry.id} entry={entry}/>;
             default:
                 return assertNever(entry);

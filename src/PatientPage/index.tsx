@@ -1,16 +1,20 @@
 import React  from "react";
-import { Container, Icon } from "semantic-ui-react";
+import { Container, Icon, Button } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { apiBaseUrl } from "../constants";
-import { Patient } from "../types";
+import {  NewEntry, Patient } from "../types";
 import { useStateValue } from "../state";
 import axios from "axios";
 import EntryList from "./EntryList";
-
+import AddEntryPatientModal from "../AddEntryPatientModal";
+import { useState } from "react"; 
 const PatientPage = () =>{
     const [{patient}, dispatch] = useStateValue();
     const {patientId} = useParams<{patientId:string}>();
+    const[openModal, setOpenModal] = useState<boolean>(false);
+    
+
     useEffect(()=>{
         const getPatient = async (id:string) =>{
             const response = await axios.get<Patient>(`${apiBaseUrl}/patients/${id}`);
@@ -25,7 +29,16 @@ const PatientPage = () =>{
         void getPatient(patientId);
         
     }, []);
-    console.log(patient);
+    const handleShowModal =() =>{
+        setOpenModal(true);
+    };
+    const handleOnClose = () =>{
+        setOpenModal(false);
+    };
+    const handleAddEntry = ((entry:NewEntry)=>{
+        console.log(entry);
+    });
+    
     return(
         <Container>
             <Container>
@@ -34,6 +47,10 @@ const PatientPage = () =>{
                 <p>occupation:{patient?.occupation}</p>
             </Container>
             <EntryList entries={patient?.entries} />
+            <AddEntryPatientModal openModal={openModal} onClose={handleOnClose} onSubmit={handleAddEntry} />
+            <Container>
+                <Button onClick={handleShowModal} primary>Add Entry</Button>
+            </Container>
         </Container>
     ) ;
 };
