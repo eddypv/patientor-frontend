@@ -3,6 +3,7 @@ import { Container, Form,Select } from "semantic-ui-react";
 
 import {EntryTypes, NewEntry} from '../types';
 import AddHealthCheckForm from "./AddHealthCheckForm";
+import AddHospitalForm from "./AddHospitalForm";
 
 interface Props{
     onSubmit :(entry:NewEntry)=>void,
@@ -22,7 +23,8 @@ const AddEntryForm = ({onSubmit, onCancel}:Props) =>{
     switch(entryType){
       case EntryTypes.HealthCheck:
         return <AddHealthCheckForm onSubmit={onSubmit} onCancel={onCancel}/>;
-
+      case EntryTypes.Hospital:
+        return <AddHospitalForm onSubmit={onSubmit} onCancel={onCancel} />;
     }
   };
     return(
