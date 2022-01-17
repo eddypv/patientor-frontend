@@ -23,7 +23,7 @@ export const SelectField = ({
 }: SelectFieldProps) => (
   <Form.Field>
     <label>{label}</label>
-    <Field as="select" name={name} className="ui dropdown">
+    <Field as="select" name={name} className="ui dropdown" >
       {options.map(option => (
         <option key={option.value} value={option.value}>
           {option.label || option.value}

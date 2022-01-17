@@ -39,7 +39,7 @@ const AddHealthCheckForm = ({onSubmit, onCancel}:Props) =>{
         if (!values.specialist) {
           errors.specialist = requiredError;
         }
-        if (!values.healthCheckRating) {
+        if (!values.healthCheckRating == undefined ) {
           errors.healthCheckRating = requiredError;
         }
         return errors;

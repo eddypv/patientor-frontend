@@ -3,7 +3,7 @@ import { Container, Icon, Button } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { apiBaseUrl } from "../constants";
-import {  NewEntry, Patient } from "../types";
+import {   Patient } from "../types";
 import { useStateValue } from "../state";
 import axios from "axios";
 import EntryList from "./EntryList";
@@ -35,9 +35,7 @@ const PatientPage = () =>{
     const handleOnClose = () =>{
         setOpenModal(false);
     };
-    const handleAddEntry = ((entry:NewEntry)=>{
-        console.log(entry);
-    });
+    
     
     return(
         <Container>
@@ -47,7 +45,7 @@ const PatientPage = () =>{
                 <p>occupation:{patient?.occupation}</p>
             </Container>
             <EntryList entries={patient?.entries} />
-            <AddEntryPatientModal openModal={openModal} onClose={handleOnClose} onSubmit={handleAddEntry} />
+            <AddEntryPatientModal openModal={openModal} onClose={handleOnClose} patientId={patientId} />
             <Container>
                 <Button onClick={handleShowModal} primary>Add Entry</Button>
             </Container>
